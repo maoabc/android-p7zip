@@ -1,7 +1,9 @@
 package net.sf.sevenzipjbinding;
 
+import android.os.ParcelFileDescriptor;
 import android.util.Log;
 
+import net.sf.sevenzipjbinding.impl.RandomAccessChannelInStream;
 import net.sf.sevenzipjbinding.impl.RandomAccessFileInStream;
 import net.sf.sevenzipjbinding.simple.ISimpleInArchive;
 import net.sf.sevenzipjbinding.simple.ISimpleInArchiveItem;
@@ -13,9 +15,30 @@ import java.io.IOException;
 import java.io.RandomAccessFile;
 import java.nio.ByteBuffer;
 import java.nio.channels.FileChannel;
+import java.nio.charset.Charset;
 
 public class SevenZipTest {
     public static final String TAG = "SevenZipTest";
+
+    public void testZipPath() throws SevenZipException {
+//        IInArchive archive = null;
+//        if (archive.getArchiveFormat() == ArchiveFormat.ZIP) {
+//            int itemIndex = 0;
+//            final String bytesStr = archive.getStringProperty(itemIndex, PropID.PATH);
+//            final byte[] bytes = new byte[bytesStr.length()];
+//            for (int i = 0; i < bytesStr.length(); i++) {
+//                bytes[i] = (byte) bytesStr.charAt(0);
+//            }
+//            Charset charset = null;
+//            String zipItemPath = new String(bytes, charset);
+//            final ParcelFileDescriptor pfd = getContentResolver().openFileDescriptor("uri", "r");
+            //可能需要提前检测文件描述符是否可随机访问
+//            final ParcelFileDescriptor.AutoCloseInputStream fin = new ParcelFileDescriptor.AutoCloseInputStream(pfd);
+//            final FileChannel channel = fin.getChannel();
+//            final RandomAccessChannelInStream inStream = new RandomAccessChannelInStream(channel);
+
+//        }
+    }
 
         /*
     @Test
