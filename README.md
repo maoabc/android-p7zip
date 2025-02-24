@@ -51,7 +51,8 @@ STDMETHODIMP CPPToJavaSequentialInStream::Read(void *data, UInt32 size, UInt32 *
     //调用java层
     jint wasRead = _iSequentialInStream->read(jniEnvInstance, _javaImplementation, buffer.get(),
                                               size);
-    //还省去了java层数据复制到native层
+    //还省去了java层数据复制到native层(不一定省去数据复制，如果在java层使用bytebuffer写入/读取数据还是会产生复制，
+    //如果把buffer传给FileChannel那么数据不会经过java层，只是相当于传递data指针)
     ...
 
     return S_OK;
@@ -61,7 +62,7 @@ public interface ISequentialInStream extends Closeable {
     public int read(ByteBuffer src, int len) throws SevenZipException;
 }
 ```
-经过优化, 不止去除了循环里数组创建, 还省去一些数据复制. 如果java层直接把ByteBuffer写入文件, 甚至只相当于把data指针传递给底层write系统调用.
+经过优化, 不止去除了循环里数组创建, 还可能省去一些数据复制. 如果java层直接把ByteBuffer写入文件, 甚至只相当于把data指针传递给底层write系统调用.
 
 输出流也有一样的问题, 改动原理和输入流一样.
 修改后接口产生比较大的变化, java部分代码需要不少调整,不过相对于严重的内存抖动这个不算什么.
